@@ -1,19 +1,24 @@
 <template>
-  <div id="app">
-    <board />
-  </div>
+  <borad />
 </template>
 
 <script>
-import Board from './components/Board.vue'
-
-export default {
-  name: 'app',
-  components: {
-    Board
+  import Borad from './components/Board'
+  export default {
+    components: {
+      Borad
+    }
   }
-}
 </script>
 
-<style>
+<style lang="scss">
+  @import "../node_modules/bulma/bulma.sass";
+  #app {
+    font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+  }
 </style>
+
