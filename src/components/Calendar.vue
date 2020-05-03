@@ -1,7 +1,7 @@
 <template>
   <table class="table is-bordered">
     <calendar-header  :firstDayOfTargetWeek="firstDayOfTargetWeek"/>
-    <user-calendar v-for="(user, index) in users" :key="user.id" :user="user" :index="index" :firstDayOfTargetWeek="firstDayOfTargetWeek"/>
+    <user-calendar v-for="(user, user_id) in users" :key="user_id" :user_id="user_id" :user="user" :firstDayOfTargetWeek="firstDayOfTargetWeek"/>
 </table>
 </template>
 

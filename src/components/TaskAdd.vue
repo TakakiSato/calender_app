@@ -7,7 +7,7 @@
     @focusin="startEditng"
     @focusout="finishEditing"
     >
-
+    {{targetDate}}
     <button type="submit" class="button is-small" v-if="isEditing || titleExists">
       Add
     </button>
@@ -25,6 +25,10 @@
     props: {
       targetDate: {
         type: String,
+        required: true
+      },
+      user: {
+        type: Object,
         required: true
       },
     },
@@ -45,7 +49,7 @@
     },
     methods: {
       addTask: function() {
-        this.$store.dispatch('addTask', {task: this.task, date: this.targetDate})
+        this.$store.dispatch('addTask', {task: this.task, date: this.targetDate, user_id:this.user.id})
         this.task = ''
       },
       startEditng() {

@@ -7,47 +7,33 @@ const savedLists = localStorage.getItem('calender-app-data')
 
 const store = new Vuex.Store({
   state: {
-    users: savedLists ? JSON.parse(savedLists): [
-    {
-      id: 'sample',
-      name: 'サンプルユーザ',
-      dates: [
-          {
-            date: '',
-            tasks: [
-            { task: 'タスク1'},
-            { task: 'タスク2'},
-            ]
-          }
+    users: savedLists ? JSON.parse(savedLists) : {
+      'sample': {
+        name: 'サンプルユーザ',
+        '2020-04-01': [
+          { task: 'タスク1'},
+          { task: 'タスク2'},
         ]
       }
-    ],
+    }
   },
-
   mutations: {
     addUser(state, payload) {
-      state.users.push({id: payload.id, name: payload.name, dates:{ tasks:[] }})
+      console.log(payload);
+      state.users[payload.id] = {name: payload.name }
+      console.log(state.users)
     },
     removeUser(state, payload) {
-      state.users.splice(payload.index, 1)
+      delete state.users[payload.user_id]
     },
     addTask(state, payload) {
       console.log(payload);
-      console.log(state.users);
+      console.log(JSON.stringify(state.users[payload.id]));
+      console.log(state.users.dates);
 
-      var useDateList = state.users.dates.map(function(row){
-        return [ row["date"] ]
-      }).reduce(function(a,b){
-        return a.concat(b);
-      });
-      console.log(useDateList);
-      var targetDateIndex = useDateList.indexOf(payload.targetDate)
+      state.users.dates.push({date: payload.targetDate, tasks: [{task: payload.task}]})
 
-      if (targetDateIndex) {
-        state.users.dates[targetDateIndex].tasks.push({task: payload.task})
-      } else {
-        state.users.dates.push({date: payload.targetDate, tasks: [{task: payload.task}]})
-      }
+
     },
     removeTask(state, payload) {
       state.users[payload.dates].tasks.splice(payload.cardIndex, 1)
