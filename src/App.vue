@@ -16,8 +16,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700');
 
 // Set your brand colors
-$purple: #8A4D76;
-$pink: #FA7C91;
 $brown: #757763;
 $beige-light: #D0D1CD;
 $beige-lighter: #EFF0EB;
@@ -26,8 +24,6 @@ $beige-lighter: #EFF0EB;
 $family-sans-serif: "Nunito", sans-serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
-$primary: $purple;
-$link: $pink;
 $widescreen-enabled: false;
 $fullhd-enabled: false;
 
@@ -42,9 +38,6 @@ $input-shadow: none;
 </style>
 
 <style type="text/css">
-table {
-  width: 100%;
-}
 
 table {
   border: 1px solid #aaa;
@@ -84,7 +77,5 @@ table tbody tr:last-child th:first-child {
 table tbody tr:last-child th:last-child {
   border-radius: 0 0 8px 0;
 }
-
-
 
 </style>

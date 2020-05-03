@@ -11,7 +11,7 @@
       >
 
       <button type="submit" class="button" v-if="isEditing || titleExists">
-        Add
+        OK!
       </button>
     </form>
   </div>

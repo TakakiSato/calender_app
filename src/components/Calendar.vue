@@ -33,3 +33,10 @@
     }
   }
 </script>
+
+<style>
+  .table {
+    table-layout:fixed;
+    width:100%;
+  }
+</style>

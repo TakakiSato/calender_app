@@ -28,15 +28,18 @@ const store = new Vuex.Store({
       state.users.splice(payload.user_index, 1)
     },
     addTask(state, payload) {
-      state.users[payload.user_index][payload.targetDate].push({task: payload.task})
+      state.users[payload.user_index][payload.target_date].push({task: payload.task, id: payload.id})
       //データの変更を伝えるための悪い実装。https://qiita.com/rh_taro/items/5c2af729dc7e3d6bd28a
       state.users.splice()
+      state.users[payload.user_index][payload.target_date].splice()
     },
     removeTask(state, payload) {
-      state.users[payload.dates].tasks.splice(payload.cardIndex, 1)
+      state.users[payload.user_index][payload.target_date].splice(payload.task_index, 1)
     },
     saveNowTaskState(state, payload) {
       state.users = payload.users
+      state.users.splice()
+
     },
     addDateField(state, payload) {
       if (!state.users[payload.user_index][payload.target_date]) {

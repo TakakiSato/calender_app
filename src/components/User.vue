@@ -30,6 +30,7 @@
 <style>
 .user-field {
   position: relative;
+  height: 300px;
 }
 .delete-list {
   color: #D0D1CD;

@@ -1,15 +1,17 @@
 <template>
   <form :class="classList" @submit.prevent="addTask">
-    <input v-model="taskName"
-    type="text"
-    class="input is-small"
-    placeholder=+タスクを追加する
-    @focusin="startEditng"
-    @focusout="finishEditing"
-    >
-    <button type="submit" class="button is-small" v-if="isEditing || titleExists">
-      Add
-    </button>
+    <div class="add-inline">
+      <input v-model="task_name"
+      type="text"
+      class="input is-small"
+      placeholder=+タスクを追加する
+      @focusin="startEditng"
+      @focusout="finishEditing"
+      >
+      <button type="submit" class="button is-small" v-if="isEditing || titleExists">
+        OK!
+      </button>
+    </div>
   </form>
 </template>
 
@@ -17,12 +19,12 @@
   export default {
     data: function() {
       return {
-        taskName: '',
+        task_name: '',
         isEditing: false,
       }
     },
     props: {
-      targetDate: {
+      target_date: {
         type: String,
         required: true
       },
@@ -33,7 +35,7 @@
     },
     computed: {
       classList() {
-        const classList = ['task-add']
+        const classList = []
         if (this.isEditing) {
           classList.push('is-focused')
         }
@@ -43,13 +45,13 @@
         return classList
       },
       titleExists() {
-        return this.taskName.length > 0
+        return this.task_name.length > 0
       }
     },
     methods: {
       addTask: function() {
-        this.$store.dispatch('addTask', {task: this.taskName, targetDate: this.targetDate, user_index:this.user_index})
-        this.taskName = ''
+        this.$store.dispatch('addTask', {task: this.task_name, target_date: this.target_date, user_index:this.user_index})
+        this.task_name = ''
       },
       startEditng() {
         this.isEditing = true
@@ -60,3 +62,9 @@
     }
   }
 </script>
+
+<style>
+.add-inline {
+  display:inline-flex
+}
+</style>
