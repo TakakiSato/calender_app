@@ -1,33 +1,36 @@
 <template>
-    <form :class="classList" @submit.prevent="addUser">
-    ユーザを追加する<br>
-    <input v-model="name"
+  <form :class="classList" @submit.prevent="addTask">
+    <input v-model="task"
     type="text"
-    class="input"
-    placeholder="ユーザ名を入力してください"
+    class="input is-small"
+    placeholder=タスク入力
     @focusin="startEditng"
     @focusout="finishEditing"
     >
 
-    <button type="submit" class="button" v-if="isEditing || titleExists">
+    <button type="submit" class="button is-small" v-if="isEditing || titleExists">
       Add
     </button>
   </form>
 </template>
 
 <script>
-  import moment from 'moment'
-
   export default {
     data: function() {
       return {
-        name: '',
+        task: '',
         isEditing: false,
       }
     },
+    props: {
+      targetDate: {
+        type: String,
+        required: true
+      },
+    },
     computed: {
       classList() {
-        const classList = ['addlist']
+        const classList = []
         if (this.isEditing) {
           classList.push('is-focused')
         }
@@ -37,13 +40,13 @@
         return classList
       },
       titleExists() {
-        return this.name.length > 0
+        return this.task.length > 0
       }
     },
     methods: {
-      addUser: function() {
-        this.$store.dispatch('addUser', {id: moment().unix(), name: this.name})
-        this.name = ''
+      addTask: function() {
+        this.$store.dispatch('addTask', {task: this.task, date: this.targetDate})
+        this.task = ''
       },
       startEditng() {
         this.isEditing = true
