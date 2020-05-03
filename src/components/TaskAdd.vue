@@ -1,13 +1,12 @@
 <template>
   <form :class="classList" @submit.prevent="addTask">
-    <input v-model="task"
+    <input v-model="taskName"
     type="text"
     class="input is-small"
-    placeholder=タスク入力
+    placeholder=+タスクを追加する
     @focusin="startEditng"
     @focusout="finishEditing"
     >
-    {{targetDate}}
     <button type="submit" class="button is-small" v-if="isEditing || titleExists">
       Add
     </button>
@@ -18,7 +17,7 @@
   export default {
     data: function() {
       return {
-        task: '',
+        taskName: '',
         isEditing: false,
       }
     },
@@ -27,14 +26,14 @@
         type: String,
         required: true
       },
-      user: {
-        type: Object,
+      user_index: {
+        type: Number,
         required: true
       },
     },
     computed: {
       classList() {
-        const classList = []
+        const classList = ['task-add']
         if (this.isEditing) {
           classList.push('is-focused')
         }
@@ -44,13 +43,13 @@
         return classList
       },
       titleExists() {
-        return this.task.length > 0
+        return this.taskName.length > 0
       }
     },
     methods: {
       addTask: function() {
-        this.$store.dispatch('addTask', {task: this.task, date: this.targetDate, user_id:this.user.id})
-        this.task = ''
+        this.$store.dispatch('addTask', {task: this.taskName, targetDate: this.targetDate, user_index:this.user_index})
+        this.taskName = ''
       },
       startEditng() {
         this.isEditing = true

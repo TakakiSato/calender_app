@@ -1,5 +1,5 @@
 <template>
-  <section class="section container content">
+  <section class="section content">
     <h1>
       My Calendar
     </h1>
@@ -37,3 +37,9 @@
     },
   }
 </script>
+
+<style>
+  .flatpickr-wrapper {
+  width: 260px;
+}
+</style>

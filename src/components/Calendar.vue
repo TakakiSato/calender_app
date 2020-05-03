@@ -1,7 +1,7 @@
 <template>
   <table class="table is-bordered">
     <calendar-header  :firstDayOfTargetWeek="firstDayOfTargetWeek"/>
-    <user-calendar v-for="(user, user_id) in users" :key="user_id" :user_id="user_id" :user="user" :firstDayOfTargetWeek="firstDayOfTargetWeek"/>
+    <user-calendar v-for="(user, user_index) in users" :key="user_index" :user_index="user_index" :user="user" :firstDayOfTargetWeek="firstDayOfTargetWeek" @change="saveNowTaskState"/>
 </table>
 </template>
 
@@ -25,6 +25,11 @@
     components: {
       CalendarHeader,
       UserCalendar
+    },
+    methods: {
+      saveNowTaskState: function() {
+        this.$store.dispatch('saveNowTaskState', {users: this.users})
+      }
     }
   }
 </script>

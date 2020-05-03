@@ -1,6 +1,6 @@
 <template>
     <form :class="classList" @submit.prevent="addUser">
-    ユーザを追加する<br>
+    + ユーザを追加する<br>
     <input v-model="name"
     type="text"
     class="input"
