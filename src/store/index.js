@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -10,6 +11,11 @@ const store = new Vuex.Store({
     users: savedLists ? JSON.parse(savedLists) : [
       { user_id: 'sample',
         name: 'サンプルユーザ',
+        [moment(new Date).format('YYYY-MM-DD')]: [{task: '〇〇PJ会議'},{task: '☓☓さん採用面談'},{task: '□□さんとランチ'}],
+        [moment(new Date).add('days', 1).format('YYYY-MM-DD')]: [{task: '△△県出張'}],
+        [moment(new Date).add('days', 2).format('YYYY-MM-DD')]: [{task: '△△県出張'}],
+        [moment(new Date).add('days', 3).format('YYYY-MM-DD')]: [{task: '休み'},{task: '映画'},{task: 'ジム'}],
+        [moment(new Date).add('days', 4).format('YYYY-MM-DD')]: [{task: '◯◯社訪問'}, {task: '☓☓会飲み'}],
       }
     ]
   },

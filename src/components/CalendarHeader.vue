@@ -20,7 +20,7 @@
     },
     methods: {
       calcEveryDay: function(index) {
-        return moment(this.firstDayOfTargetWeek).add(index, 'd').format('YYYY-MM-DD')  // '2021-01-10T07:30:20+09:00'
+        return moment(this.firstDayOfTargetWeek).add(index, 'd').format('YYYY-MM-DD')
       }
     }
   }

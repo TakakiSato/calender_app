@@ -1,10 +1,10 @@
 <template>
   <section class="section content">
     <h1>
-      My Calendar
+      Simple Weekly Calendar
     </h1>
     <div>
-      <datepicker v-model="targetDate" placeholder="日付を指定してください" :config="{ dateFormat: 'Y-m-d', static: true }"></datepicker>
+      <datepicker v-model="targetDate" placeholder="移動したい日付を指定してください" :config="{ dateFormat: 'Y-m-d', static: true }"></datepicker>
       <calendar :firstDayOfTargetWeek="fetchFirstDayOfTargetWeek"/>
       <user-add />
     </div>
@@ -40,6 +40,6 @@
 
 <style>
   .flatpickr-wrapper {
-  width: 260px;
+  width: 300px;
 }
 </style>
