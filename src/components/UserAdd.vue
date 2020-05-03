@@ -1,18 +1,20 @@
 <template>
-    <form :class="classList" @submit.prevent="addUser">
-    ユーザを追加する<br>
-    <input v-model="name"
-    type="text"
-    class="input"
-    placeholder="ユーザ名を入力してください"
-    @focusin="startEditng"
-    @focusout="finishEditing"
-    >
+  <div>
+    <div v-if="!isUserAdd && !isEditing && !titleExists" @click="startUserAdd">+ ユーザを追加する</div>
+    <form :class="classList" @submit.prevent="addUser" v-if="isUserAdd || titleExists">
+      <input v-model="name"
+      type="text"
+      class="input"
+      placeholder="ユーザ名を入力してください"
+      @focusin="startEditng"
+      @focusout="finishEditing"
+      >
 
-    <button type="submit" class="button" v-if="isEditing || titleExists">
-      Add
-    </button>
-  </form>
+      <button type="submit" class="button" v-if="isEditing || titleExists">
+        OK!
+      </button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -23,6 +25,7 @@
       return {
         name: '',
         isEditing: false,
+        isUserAdd: false
       }
     },
     computed: {
@@ -50,7 +53,14 @@
       },
       finishEditing() {
         this.isEditing = false
-      }
+        this.finishUserAdd()
+      },
+      startUserAdd() {
+        this.isUserAdd = true
+      },
+      finishUserAdd() {
+        this.isUserAdd = false
+      },
     }
   }
 </script>

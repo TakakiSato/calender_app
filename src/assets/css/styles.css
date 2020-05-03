@@ -1,5 +1,8 @@
+@import '../../../node_modules/bulma/sass/utilities/initial-variables.sass'
+@import '../../../node_modules/bulma/sass/utilities/initial-variables.sass'
+
 html {
-  background: orange;
+  background: #D9E5FF;
   font-family: 'Avenir', Helvetica, Arial, 'system-ui', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

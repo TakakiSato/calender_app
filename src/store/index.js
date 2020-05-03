@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import moment from 'moment'
 
 Vue.use(Vuex)
 
@@ -7,51 +8,44 @@ const savedLists = localStorage.getItem('calender-app-data')
 
 const store = new Vuex.Store({
   state: {
-    users: savedLists ? JSON.parse(savedLists): [
-    {
-      id: 'sample',
-      name: 'サンプルユーザ',
-      dates: [
-          {
-            date: '',
-            tasks: [
-            { task: 'タスク1'},
-            { task: 'タスク2'},
-            ]
-          }
-        ]
+    users: savedLists ? JSON.parse(savedLists) : [
+      { user_id: 'sample',
+        name: 'サンプルユーザ',
+        [moment(new Date).format('YYYY-MM-DD')]: [{task: '〇〇PJ会議'},{task: '☓☓さん採用面談'},{task: '□□さんとランチ'}],
+        [moment(new Date).add('days', 1).format('YYYY-MM-DD')]: [{task: '△△県出張'}],
+        [moment(new Date).add('days', 2).format('YYYY-MM-DD')]: [{task: '△△県出張'}],
+        [moment(new Date).add('days', 3).format('YYYY-MM-DD')]: [{task: '休み'},{task: '映画'},{task: 'ジム'}],
+        [moment(new Date).add('days', 4).format('YYYY-MM-DD')]: [{task: '◯◯社訪問'}, {task: '☓☓会飲み'}],
       }
-    ],
+    ]
   },
-
   mutations: {
     addUser(state, payload) {
-      state.users.push({id: payload.id, name: payload.name, dates:{ tasks:[] }})
+      state.users.push({user_id: payload.id, name: payload.name })
     },
     removeUser(state, payload) {
-      state.users.splice(payload.index, 1)
+      //delete state.users[payload.user_id]
+      state.users.splice(payload.user_index, 1)
     },
     addTask(state, payload) {
-      console.log(payload);
-      console.log(state.users);
-
-      var useDateList = state.users.dates.map(function(row){
-        return [ row["date"] ]
-      }).reduce(function(a,b){
-        return a.concat(b);
-      });
-      console.log(useDateList);
-      var targetDateIndex = useDateList.indexOf(payload.targetDate)
-
-      if (targetDateIndex) {
-        state.users.dates[targetDateIndex].tasks.push({task: payload.task})
-      } else {
-        state.users.dates.push({date: payload.targetDate, tasks: [{task: payload.task}]})
-      }
+      state.users[payload.user_index][payload.target_date].push({task: payload.task, id: payload.id})
+      //データの変更を伝えるための悪い実装。https://qiita.com/rh_taro/items/5c2af729dc7e3d6bd28a
+      state.users.splice()
+      state.users[payload.user_index][payload.target_date].splice()
     },
     removeTask(state, payload) {
-      state.users[payload.dates].tasks.splice(payload.cardIndex, 1)
+      state.users[payload.user_index][payload.target_date].splice(payload.task_index, 1)
     },
+    saveNowTaskState(state, payload) {
+      state.users = payload.users
+      state.users.splice()
+
+    },
+    addDateField(state, payload) {
+      if (!state.users[payload.user_index][payload.target_date]) {
+       state.users[payload.user_index][payload.target_date] = []
+     }
+   }
   },
   actions: {
     addUser(context, payload) {
@@ -66,7 +60,12 @@ const store = new Vuex.Store({
     removeTask(context, payload) {
       context.commit('removeTask', payload)
     },
-
+    saveNowTaskState(context, payload) {
+      context.commit('saveNowTaskState', payload)
+    },
+    addDateField(context, payload) {
+      context.commit('addDateField', payload)
+    }
   },
   modules: {
   },
